@@ -20,7 +20,17 @@ window.DIAMA_DATA = {
       trackUrl: 'https://soundcloud.com/kinychbeat/hyperstar-1',
       phrase: ''
     },
-    { name: 'Marion O', role: 'DJ / ARTISTA', status: 'Material pendiente' },
+    {
+      name: 'Marion O',
+      role: 'DJ / ARTISTA',
+      status: 'Disponible',
+      image: 'assets/marion-o.jpg',
+      title: 'Marion O @ Ufo Camp 2026',
+      soundcloud: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2389279293&color=%231e1f23&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false',
+      profile: 'https://soundcloud.com/mariana-orozco-639274075',
+      trackUrl: 'https://soundcloud.com/mariana-orozco-639274075/marion-o-ufo-camp-2026',
+      phrase: ''
+    },
     {
       name: 'n4tura',
       role: 'DJ / ARTISTA',
@@ -47,7 +57,15 @@ window.DIAMA_DATA = {
     }
   ],
   visualArtists: [
-    'Pawina', 'Canem', 'Bastard', 'Mirlo Pájaro', 'Joel Cano',
-    'Dante Carro', 'Karen Sanz', 'Malak', 'Varón de Humo', 'Rata Mugrosa'
-  ].map((name, index) => ({ name, index: index + 1, works: [] }))
+    { name: 'Pawina', works: [{ image: 'assets/pawina.jpg', alt: 'Obra de Pawina' }] },
+    { name: 'Bastard', works: [{ image: 'assets/bastard.jpg', alt: 'Obra de Bastard' }] },
+    { name: 'Karen Sanz', works: [{ image: 'assets/karen-sanz.jpg', alt: 'Obra de Karen Sanz' }] },
+    { name: 'Canem', works: [] },
+    { name: 'Mirlo Pájaro', works: [] },
+    { name: 'Joel Cano', works: [] },
+    { name: 'Dante Carro', works: [] },
+    { name: 'Malak', works: [] },
+    { name: 'Varón de Humo', works: [] },
+    { name: 'Rata Mugrosa', works: [] }
+  ].map((artist, index) => ({ ...artist, index: index + 1 }))
 };

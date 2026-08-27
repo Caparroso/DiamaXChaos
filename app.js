@@ -14,7 +14,7 @@
     view: 'intro',
     profile: readProfile(),
     musicIndex: -1,
-    visualIndex: null,
+    visualIndex: 0,
     playerTab: 'artists',
     playerPosition: 0,
     playerDuration: 0,
@@ -318,17 +318,20 @@
 
   function renderVisual() {
     $('#visualGrid').innerHTML = data.visualArtists.map((artist, index) => `
-      <button class="visual-artist${state.visualIndex === index ? ' is-active' : ''}" data-visual-index="${index}">
+      <button class="visual-artist${artist.works.length ? ' has-work' : ''}${state.visualIndex === index ? ' is-active' : ''}" data-visual-index="${index}">
+        ${artist.works.length ? `<img class="visual-thumb" src="${artist.works[0].image}" alt="">` : ''}
         <span>${String(artist.index).padStart(2, '0')}</span><b>${escapeHTML(artist.name)}</b><small>${artist.works.length || 0} OBRAS</small>
       </button>
     `).join('');
     if (state.visualIndex === null) return;
     const artist = data.visualArtists[state.visualIndex];
+    const work = artist.works[0];
     $('#visualPreview').innerHTML = `
       <span>ARTISTA VISUAL ${String(artist.index).padStart(2, '0')}</span>
       <h3>${escapeHTML(artist.name)}</h3>
-      <div class="empty-art"><i></i></div>
-      <p>OBRAS PENDIENTES.</p>`;
+      ${work
+        ? `<figure class="visual-art-frame"><img src="${work.image}" alt="${escapeHTML(work.alt)}"></figure><p>OBRA 01 / 01</p>`
+        : '<div class="empty-art"><i></i></div><p>OBRAS PENDIENTES.</p>'}`;
   }
 
   function unlockExperience() {

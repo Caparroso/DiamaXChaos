@@ -230,3 +230,42 @@ button,input,a{font:inherit}button,a{touch-action:manipulation}.app-shell{positi
   .player-window{height:calc(100svh - 126px)}
   .now-artwork .artist-image{height:170px;min-height:170px}
 }
+
+/* V13: obra visual real y primeras entregas destacadas */
+.visual-artist{position:relative;overflow:hidden;isolation:isolate}
+.visual-artist.has-work{min-height:82px}
+.visual-artist.has-work::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  background:linear-gradient(90deg,rgba(28,0,7,.28),rgba(28,0,7,.9));
+}
+.visual-thumb{
+  position:absolute;
+  z-index:-2;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:saturate(.88) contrast(1.06);
+}
+.visual-artist.has-work:hover::before,.visual-artist.has-work.is-active::before{
+  background:linear-gradient(90deg,rgba(177,0,31,.18),rgba(76,0,14,.76));
+}
+.visual-art-frame{
+  position:relative;
+  flex:1;
+  min-height:260px;
+  margin:12px 0 0;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.22);
+  background:#130307;
+}
+.visual-art-frame img{display:block;width:100%;height:100%;object-fit:contain}
+
+@media(max-width:820px){
+  .visual-layout{display:flex;flex-direction:column}
+  .visual-preview{order:-1;min-height:min(64svh,560px)}
+  .visual-art-frame{min-height:300px}
+}
