@@ -42,8 +42,23 @@ window.DIAMA_DATA = {
       trackUrl: 'https://soundcloud.com/n4turaaaa/el-valle-de-los-ecos-liminal-set',
       phrase: ''
     },
-    { name: 'prax', role: 'DJ / ARTISTA', status: 'Material pendiente' },
-    { name: 'solar plexuz', role: 'DJ / ARTISTA', status: 'Material pendiente' },
+    {
+      name: 'prax',
+      role: 'DJ / ARTISTA',
+      status: 'Material pendiente',
+      image: 'assets/prax.png'
+    },
+    {
+      name: 'solar plexuz',
+      role: 'DJ / ARTISTA',
+      status: 'Disponible',
+      image: 'assets/solar-plexuz.jpg',
+      title: 'SET 1 - SOLAR PLEXUZ - HI',
+      soundcloud: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2212897043&color=%231e1f23&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false',
+      profile: 'https://soundcloud.com/solar_plexuz',
+      trackUrl: 'https://soundcloud.com/solar_plexuz/set-1-solar-plexuz-hi',
+      phrase: ''
+    },
     {
       name: 'Break Madre',
       role: 'HOST',
@@ -60,12 +75,12 @@ window.DIAMA_DATA = {
     { name: 'Pawina', works: [{ image: 'assets/pawina.jpg', alt: 'Obra de Pawina' }] },
     { name: 'Bastard', works: [{ image: 'assets/bastard.jpg', alt: 'Obra de Bastard' }] },
     { name: 'Karen Sanz', works: [{ image: 'assets/karen-sanz.jpg', alt: 'Obra de Karen Sanz' }] },
-    { name: 'Canem', works: [] },
-    { name: 'Mirlo Pájaro', works: [] },
-    { name: 'Joel Cano', works: [] },
-    { name: 'Dante Carro', works: [] },
+    { name: 'Dante Carro', works: [{ image: 'assets/dante-carro.jpg', alt: 'Obra de Dante Carro' }] },
+    { name: 'CANEM', works: [{ image: 'assets/canem.jpg', alt: 'Obra de CANEM' }] },
+    { name: 'Joel Cano', works: [{ image: 'assets/joel-cano.jpg', alt: 'Obra de Joel Cano' }] },
+    { name: 'Mirlo Pájaro', works: [{ image: 'assets/mirlo-pajaro.jpg', alt: 'Obra de Mirlo Pájaro' }] },
+    { name: 'Rata Mugrosa', works: [{ image: 'assets/rata-mugrosa.jpg', alt: 'Obra de Rata Mugrosa' }] },
     { name: 'Malak', works: [] },
-    { name: 'Varón de Humo', works: [] },
-    { name: 'Rata Mugrosa', works: [] }
+    { name: 'Varón de Humo', works: [] }
   ].map((artist, index) => ({ ...artist, index: index + 1 }))
 };
