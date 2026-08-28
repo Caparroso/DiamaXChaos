@@ -3,11 +3,11 @@
 
   const data = window.DIAMA_DATA;
   const STORAGE_KEY = 'diama-qro-profile-v1';
-  const views = ['intro', 'info', 'lineup', 'register', 'access', 'media', 'visual'];
+  const views = ['intro', 'lineup', 'register', 'access', 'media', 'visual'];
   const mobileBladeMeta = {
-    intro: ['00', 'PORTADA'], info: ['01', 'INFO'], lineup: ['02', 'LINEUP'],
-    register: ['03', 'MI BOLETO'], access: ['04', 'UBICACIÓN'],
-    media: ['05', 'DIAMA PLAYER'], visual: ['06', 'ARTE VISUAL']
+    intro: ['00', 'PORTADA'], lineup: ['01', 'LINEUP'],
+    register: ['02', 'MI BOLETO'], access: ['03', 'UBICACIÓN'],
+    media: ['04', 'DIAMA PLAYER'], visual: ['05', 'ARTE VISUAL']
   };
   const lockedViews = new Set();
   const state = {
@@ -416,7 +416,7 @@
       context.fillStyle = '#ff7188'; context.font = '600 20px Inter, Arial, sans-serif'; context.fillText('REGISTRO', 94, 830);
       context.fillStyle = '#fff'; context.font = '800 76px Inter, Arial, sans-serif'; context.fillText(state.profile.name.toUpperCase().slice(0, 18), 92, 934);
       context.font = '600 29px Inter, Arial, sans-serif'; context.fillText(`@${state.profile.instagram}`, 96, 990);
-      context.fillStyle = '#ff7188'; context.font = '600 20px Inter, Arial, sans-serif'; context.fillText('05 SEPTIEMBRE  /  QUERÉTARO', 96, 1080);
+      context.fillStyle = '#ff7188'; context.font = '600 20px Inter, Arial, sans-serif'; context.fillText('05 SEPTIEMBRE  /  $100 EN PUERTA', 96, 1080);
       context.fillStyle = '#fff'; context.fillText(`FOLIO ${state.profile.folio}`, 96, 1130);
       for (let x = 94; x < 980; x += 11) context.fillRect(x, 1184, (x % 4) + 2, 42);
 

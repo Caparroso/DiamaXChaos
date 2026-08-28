@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/diama-logo.png">
-  <link rel="stylesheet" href="styles.css?v=14">
+  <link rel="stylesheet" href="styles.css?v=15">
 </head>
 <body>
   <div class="boot" id="boot" aria-hidden="true">
@@ -26,66 +26,50 @@
   <div class="app-shell" id="appShell">
     <div class="noise" aria-hidden="true"></div>
     <div class="global-matrix" aria-hidden="true"><span>ディアマ赤い夜</span><span>DIAMA.DIAMA.</span><span>文化信号五九</span><span>光の中で踊れ</span><span>QUERÉTARO</span><span>混沌安息日</span><span>DIAMA.</span><span>音楽芸術共同体</span><span>赤い信号</span><span>05.09</span><span>秘密の場所</span><span>DIAMA QRO</span></div>
-    <div class="center-brand" aria-label="Diama."><span class="brand-wordmark" aria-hidden="true"></span></div>
     <nav class="xbox-nav" id="blades" aria-label="Navegación principal">
       <div class="blade-group blades-left">
         <button class="blade" data-view-target="intro"><span>00</span>PORTADA</button>
-        <button class="blade" data-view-target="info"><span>01</span>INFO</button>
-        <button class="blade" data-view-target="lineup"><span>02</span>LINEUP</button>
-        <button class="blade" data-view-target="register"><span>03</span><b data-register-label>REGISTRO</b></button>
+        <button class="blade" data-view-target="lineup"><span>01</span>LINEUP</button>
+        <button class="blade" data-view-target="register"><span>02</span><b data-register-label>REGISTRO</b></button>
       </div>
       <div class="blade-group blades-right">
-        <button class="blade" data-view-target="access"><span>04</span>UBICACIÓN</button>
-        <button class="blade" data-view-target="media"><span>05</span>DIAMA PLAYER</button>
-        <button class="blade" data-view-target="visual"><span>06</span>ARTE VISUAL</button>
+        <button class="blade" data-view-target="access"><span>03</span>UBICACIÓN</button>
+        <button class="blade" data-view-target="media"><span>04</span>DIAMA PLAYER</button>
+        <button class="blade" data-view-target="visual"><span>05</span>ARTE VISUAL</button>
       </div>
     </nav>
     <nav class="mobile-edge-nav" aria-label="Navegación móvil">
-      <button class="mobile-edge mobile-edge-left" data-mobile-edge="left" data-view-target="register"><span>03</span><b>MI BOLETO</b></button>
-      <button class="mobile-edge mobile-edge-right" data-mobile-edge="right" data-view-target="media"><span>05</span><b>DIAMA PLAYER</b></button>
+      <button class="mobile-edge mobile-edge-left" data-mobile-edge="left" data-view-target="register"><span>02</span><b>MI BOLETO</b></button>
+      <button class="mobile-edge mobile-edge-right" data-mobile-edge="right" data-view-target="media"><span>04</span><b>DIAMA PLAYER</b></button>
     </nav>
 
     <main class="stage" id="stage">
-      <section class="view hero-view is-active" data-view="intro" aria-labelledby="intro-title">
-        <div class="clean-cover">
+      <section class="view hero-view is-active" data-view="intro" aria-label="Diama X Chaos Sabbati — Querétaro">
+        <article class="home-flyer">
           <div class="cover-matrix" aria-hidden="true">
             <span>ディアマ赤い夜文化信号</span><span>光の中で踊れ</span><span>QUERÉTARO五九</span><span>混沌安息日</span><span>音楽芸術共同体</span><span>DIAMA.DIAMA.DIAMA.</span><span>秘密の場所</span><span>赤い信号を追え</span>
           </div>
-          <div class="cover-wordmark" aria-label="Diama."></div>
+          <header class="flyer-brandline">
+            <div class="cover-wordmark" aria-label="Diama."></div>
+            <div class="flyer-collab"><b>X CHAOS SABBATI</b><span>QUERÉTARO</span></div>
+          </header>
           <img class="chaos-mark" src="assets/chaos-sabbati-logo.jpg" alt="Chaos Sabbati">
-          <div class="cover-event-title">X CHAOS SABBATI<span>QUERÉTARO</span></div>
-          <div class="cover-lineup" aria-label="Lineup"><b>kinychbeat</b><b>Marion O</b><b>n4tura</b><b>prax</b><b>solar plexuz</b><b>Break Madre</b></div>
-          <div class="cover-date"><span>5 SEPTIEMBRE / QUERÉTARO</span></div>
-        </div>
-        <div class="hero-copy">
-          <div class="hero-wordmark" aria-label="Diama."></div>
-          <p class="sys-label">DIAMA X CHAOS SABBATI</p>
-          <h1 id="intro-title">QUERÉTARO</h1>
-          <p class="hero-meta">5 DE SEPTIEMBRE <span>•</span> QUERÉTARO</p>
-          <small>DESLIZA O USA LAS PESTAÑAS PARA RECORRER LA INVITACIÓN</small>
-        </div>
-      </section>
-
-      <section class="view info-view" data-view="info" aria-labelledby="info-title">
-        <header class="view-heading"><p>01 / INFORMACIÓN</p><h2 id="info-title">INFORMACIÓN</h2></header>
-        <div class="info-grid">
-          <article class="info-card info-date"><span>FECHA</span><strong>05</strong><b>SEPTIEMBRE</b></article>
-          <article class="info-card"><span>CIUDAD</span><strong>QRO</strong><b>QUERÉTARO</b></article>
-          <article class="info-card info-wide"><span>EVENTO</span><h3>DIAMA X CHAOS SABBATI</h3><p>MÚSICA + ARTE VISUAL</p></article>
-          <article class="info-card info-wide muted"><span>INFORMACIÓN</span><p>Horarios y detalles adicionales pendientes.</p></article>
-        </div>
+          <div class="cover-lineup" aria-label="Lineup"><span>LINEUP</span><b>kinychbeat</b><b>Marion O</b><b>n4tura</b><b>prax</b><b>solar plexuz</b><b>Break Madre</b></div>
+          <footer class="flyer-meta"><div class="flyer-date"><strong>5</strong><span>SEPTIEMBRE</span></div><b class="flyer-time">8:00PM</b></footer>
+        </article>
       </section>
 
       <section class="view lineup-view" data-view="lineup" aria-labelledby="lineup-title">
-        <header class="view-heading"><p>02 / LINEUP</p><h2 id="lineup-title">LINEUP</h2></header>
+        <header class="view-heading"><p>01 / LINEUP</p><h2 id="lineup-title">LINEUP</h2></header>
         <div class="lineup-list" id="lineupList"></div>
       </section>
 
       <section class="view register-view" data-view="register" aria-labelledby="register-title">
         <div class="register-copy">
-          <p class="sys-label">03 / REGISTRO</p>
+          <p class="sys-label">02 / REGISTRO</p>
           <h2 id="register-title">REGISTRO</h2>
-          <p>Nombre e Instagram. El boleto generado se presenta para entrar al evento.</p>
+          <p>Nombre e Instagram. Presenta tu boleto para acceder al precio preferencial.</p>
+          <div class="registration-price"><div><span>CON REGISTRO</span><strong>$100</strong><small>EN PUERTA</small></div><div><span>SIN REGISTRO</span><strong>$150</strong></div></div>
         </div>
         <div class="profile-console">
           <form id="registrationForm" novalidate>
@@ -105,7 +89,7 @@
             </div>
             <div class="ticket-data">
               <p>BOLETO</p><h3 id="ticketName">—</h3><strong id="ticketInstagram">—</strong>
-              <dl><div><dt>EVENTO</dt><dd>DIAMA X CHAOS</dd></div><div><dt>FECHA</dt><dd>05 SEPT</dd></div><div><dt>FOLIO</dt><dd id="ticketFolio">—</dd></div></dl>
+              <dl><div><dt>EVENTO</dt><dd>DIAMA X CHAOS</dd></div><div><dt>FECHA</dt><dd>05 SEPT</dd></div><div><dt>PRECIO</dt><dd>$100 EN PUERTA</dd></div><div><dt>FOLIO</dt><dd id="ticketFolio">—</dd></div></dl>
               <div class="ticket-code" aria-hidden="true"></div>
               <button class="action action-primary action-full" id="downloadTicket" type="button">GUARDAR BOLETO</button>
             </div>
@@ -114,7 +98,7 @@
       </section>
 
       <section class="view access-view" data-view="access" aria-labelledby="access-title">
-        <header class="view-heading"><p>04 / UBICACIÓN</p><h2 id="access-title">UBICACIÓN</h2></header>
+        <header class="view-heading"><p>03 / UBICACIÓN</p><h2 id="access-title">UBICACIÓN</h2></header>
         <div class="location-console">
           <div class="radar" aria-hidden="true"><i></i><b>QRO</b></div>
           <div class="location-copy"><span>UBICACIÓN</span><h3>QUERÉTARO</h3><p>Dirección del evento en Google Maps.</p><a class="action action-primary" id="mapsLink" target="_blank" rel="noopener">ABRIR MAPA</a></div>
@@ -122,7 +106,7 @@
       </section>
 
       <section class="view media-view" data-view="media" aria-labelledby="media-title">
-        <header class="view-heading compact"><p>05 / DIAMA PLAYER</p><h2 id="media-title">DIAMA PLAYER</h2></header>
+        <header class="view-heading compact"><p>04 / DIAMA PLAYER</p><h2 id="media-title">DIAMA PLAYER</h2></header>
         <div class="player-window">
           <header class="player-titlebar"><div><span class="player-wordmark" aria-hidden="true"></span><b>DIAMA PLAYER</b></div></header>
           <nav class="player-tabs" aria-label="Secciones del reproductor">
@@ -143,7 +127,7 @@
       </section>
 
       <section class="view visual-view" data-view="visual" aria-labelledby="visual-title">
-        <header class="view-heading compact"><p>06 / ARTISTAS VISUALES</p><h2 id="visual-title">ARTISTAS<br>VISUALES</h2></header>
+        <header class="view-heading compact"><p>05 / ARTISTAS VISUALES</p><h2 id="visual-title">ARTISTAS<br>VISUALES</h2></header>
         <div class="visual-layout">
           <div class="visual-grid" id="visualGrid"></div>
           <article class="visual-preview" id="visualPreview"><span>SELECT ARTIST</span><div class="empty-art"><i></i></div><p>Selecciona un artista para abrir su archivo visual.</p></article>
@@ -153,8 +137,8 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </div>
-  <script src="data.js?v=14"></script>
-  <script src="app.js?v=14"></script>
+  <script src="data.js?v=15"></script>
+  <script src="app.js?v=15"></script>
   <script async src="https://w.soundcloud.com/player/api.js" onload="window.DIAMA_SOUND_CLOUD_READY && window.DIAMA_SOUND_CLOUD_READY()"></script>
 </body>
 </html>

@@ -45,8 +45,13 @@ window.DIAMA_DATA = {
     {
       name: 'prax',
       role: 'DJ / ARTISTA',
-      status: 'Material pendiente',
-      image: 'assets/prax.png'
+      status: 'Disponible',
+      image: 'assets/prax.png',
+      title: 'PRAX SET',
+      soundcloud: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2390019291&color=%231e1f23&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false',
+      profile: 'https://soundcloud.com/jocelyn-martinez-marin',
+      trackUrl: 'https://soundcloud.com/jocelyn-martinez-marin/prax-set',
+      phrase: ''
     },
     {
       name: 'solar plexuz',
@@ -80,7 +85,6 @@ window.DIAMA_DATA = {
     { name: 'Joel Cano', works: [{ image: 'assets/joel-cano.jpg', alt: 'Obra de Joel Cano' }] },
     { name: 'Mirlo Pájaro', works: [{ image: 'assets/mirlo-pajaro.jpg', alt: 'Obra de Mirlo Pájaro' }] },
     { name: 'Rata Mugrosa', works: [{ image: 'assets/rata-mugrosa.jpg', alt: 'Obra de Rata Mugrosa' }] },
-    { name: 'Malak', works: [] },
-    { name: 'Varón de Humo', works: [] }
+    { name: 'Malak', works: [] }
   ].map((artist, index) => ({ ...artist, index: index + 1 }))
 };
