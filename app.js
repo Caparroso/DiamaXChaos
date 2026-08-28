@@ -122,7 +122,6 @@
       'ディアマ混沌安息日秘密の場所赤い信号五九'
     ];
     $$('.view').forEach((view, viewIndex) => {
-      if (view.dataset.view === 'intro') return;
       if ($('.view-matrix', view)) return;
       const matrix = document.createElement('div');
       matrix.className = 'view-matrix';
@@ -387,7 +386,7 @@
     const context = canvas.getContext('2d');
     try {
       const [diamaLogo, chaosLogo] = await Promise.all([
-        loadImage('assets/diama-logo.png'), loadImage('assets/chaos-sabbati-logo.jpg')
+        loadImage('assets/diama-logo.png'), loadImage('assets/chaos-sabbati-cutout.png')
       ]);
       context.fillStyle = '#050203'; context.fillRect(0, 0, width, height);
       const glow = context.createRadialGradient(650, 400, 20, 650, 400, 600);
