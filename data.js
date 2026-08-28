@@ -7,7 +7,7 @@ window.DIAMA_DATA = {
     locationLabel: 'UBICACIÓN CONFIRMADA',
     mapsUrl: 'https://maps.app.goo.gl/NFqnchoPc9XxhhnW8?g_st=ic'
   },
-  registrationEndpoint: '',
+  registrationEndpoint: 'https://formspree.io/f/xbgjjjkj',
   musicArtists: [
     {
       name: 'kinychbeat',

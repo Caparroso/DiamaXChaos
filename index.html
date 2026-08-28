@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/diama-logo.png">
-  <link rel="stylesheet" href="styles.css?v=17">
+  <link rel="stylesheet" href="styles.css?v=18">
 </head>
 <body>
   <div class="boot" id="boot" aria-hidden="true">
@@ -29,18 +29,17 @@
     <nav class="xbox-nav" id="blades" aria-label="Navegación principal">
       <div class="blade-group blades-left">
         <button class="blade" data-view-target="intro"><span>00</span>PORTADA</button>
-        <button class="blade" data-view-target="lineup"><span>01</span>LINEUP</button>
-        <button class="blade" data-view-target="register"><span>02</span><b data-register-label>REGISTRO</b></button>
+        <button class="blade" data-view-target="register"><span>01</span><b data-register-label>REGISTRO</b></button>
       </div>
       <div class="blade-group blades-right">
-        <button class="blade" data-view-target="access"><span>03</span>UBICACIÓN</button>
-        <button class="blade" data-view-target="media"><span>04</span>DIAMA PLAYER</button>
-        <button class="blade" data-view-target="visual"><span>05</span>ARTE VISUAL</button>
+        <button class="blade" data-view-target="access"><span>02</span>UBICACIÓN</button>
+        <button class="blade" data-view-target="media"><span>03</span>DIAMA PLAYER</button>
+        <button class="blade" data-view-target="visual"><span>04</span>ARTE VISUAL</button>
       </div>
     </nav>
     <nav class="mobile-edge-nav" aria-label="Navegación móvil">
-      <button class="mobile-edge mobile-edge-left" data-mobile-edge="left" data-view-target="register"><span>02</span><b>MI BOLETO</b></button>
-      <button class="mobile-edge mobile-edge-right" data-mobile-edge="right" data-view-target="media"><span>04</span><b>DIAMA PLAYER</b></button>
+      <button class="mobile-edge mobile-edge-left" data-mobile-edge="left" data-view-target="register"><span>01</span><b>MI BOLETO</b></button>
+      <button class="mobile-edge mobile-edge-right" data-mobile-edge="right" data-view-target="media"><span>03</span><b>DIAMA PLAYER</b></button>
     </nav>
 
     <main class="stage" id="stage">
@@ -56,14 +55,9 @@
         </article>
       </section>
 
-      <section class="view lineup-view" data-view="lineup" aria-labelledby="lineup-title">
-        <header class="view-heading"><p>01 / LINEUP</p><h2 id="lineup-title">LINEUP</h2></header>
-        <div class="lineup-list" id="lineupList"></div>
-      </section>
-
       <section class="view register-view" data-view="register" aria-labelledby="register-title">
         <div class="register-copy">
-          <p class="sys-label">02 / REGISTRO</p>
+          <p class="sys-label">01 / REGISTRO</p>
           <h2 id="register-title">REGISTRO</h2>
           <p>Nombre e Instagram. Presenta tu boleto para acceder al precio preferencial.</p>
           <div class="registration-price"><div><span>CON REGISTRO</span><strong>$100</strong><small>EN PUERTA</small></div><div><span>SIN REGISTRO</span><strong>$150</strong><small>EN PUERTA</small></div></div>
@@ -95,7 +89,7 @@
       </section>
 
       <section class="view access-view" data-view="access" aria-labelledby="access-title">
-        <header class="view-heading"><p>03 / UBICACIÓN</p><h2 id="access-title">UBICACIÓN</h2></header>
+        <header class="view-heading"><p>02 / UBICACIÓN</p><h2 id="access-title">UBICACIÓN</h2></header>
         <div class="location-console">
           <div class="radar" aria-hidden="true"><i></i><b>QRO</b></div>
           <div class="location-copy"><span>UBICACIÓN</span><h3>QUERÉTARO</h3><p>Dirección del evento en Google Maps.</p><a class="action action-primary" id="mapsLink" target="_blank" rel="noopener">ABRIR MAPA</a></div>
@@ -103,7 +97,7 @@
       </section>
 
       <section class="view media-view" data-view="media" aria-labelledby="media-title">
-        <header class="view-heading compact"><p>04 / DIAMA PLAYER</p><h2 id="media-title">DIAMA PLAYER</h2></header>
+        <header class="view-heading compact"><p>03 / DIAMA PLAYER</p><h2 id="media-title">DIAMA PLAYER</h2></header>
         <div class="player-window">
           <header class="player-titlebar"><div><span class="player-wordmark" aria-hidden="true"></span><b>DIAMA PLAYER</b></div></header>
           <nav class="player-tabs" aria-label="Secciones del reproductor">
@@ -124,7 +118,7 @@
       </section>
 
       <section class="view visual-view" data-view="visual" aria-labelledby="visual-title">
-        <header class="view-heading compact"><p>05 / ARTISTAS VISUALES</p><h2 id="visual-title">ARTISTAS<br>VISUALES</h2></header>
+        <header class="view-heading compact"><p>04 / ARTISTAS VISUALES</p><h2 id="visual-title">ARTISTAS<br>VISUALES</h2></header>
         <div class="visual-layout">
           <div class="visual-grid" id="visualGrid"></div>
           <article class="visual-preview" id="visualPreview"><span>SELECT ARTIST</span><div class="empty-art"><i></i></div><p>Selecciona un artista para abrir su archivo visual.</p></article>
@@ -134,8 +128,8 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </div>
-  <script src="data.js?v=17"></script>
-  <script src="app.js?v=17"></script>
+  <script src="data.js?v=18"></script>
+  <script src="app.js?v=18"></script>
   <script async src="https://w.soundcloud.com/player/api.js" onload="window.DIAMA_SOUND_CLOUD_READY && window.DIAMA_SOUND_CLOUD_READY()"></script>
 </body>
 </html>

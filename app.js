@@ -3,11 +3,11 @@
 
   const data = window.DIAMA_DATA;
   const STORAGE_KEY = 'diama-qro-profile-v1';
-  const views = ['intro', 'lineup', 'register', 'access', 'media', 'visual'];
+  const views = ['intro', 'register', 'access', 'media', 'visual'];
   const mobileBladeMeta = {
-    intro: ['00', 'PORTADA'], lineup: ['01', 'LINEUP'],
-    register: ['02', 'MI BOLETO'], access: ['03', 'UBICACIÓN'],
-    media: ['04', 'DIAMA PLAYER'], visual: ['05', 'ARTE VISUAL']
+    intro: ['00', 'PORTADA'], register: ['01', 'MI BOLETO'],
+    access: ['02', 'UBICACIÓN'], media: ['03', 'DIAMA PLAYER'],
+    visual: ['04', 'ARTE VISUAL']
   };
   const lockedViews = new Set();
   const state = {
@@ -129,16 +129,6 @@
       matrix.innerHTML = glyphs.map((glyph, index) => `<span style="--matrix-i:${index + viewIndex}">${`${glyph}・`.repeat(5)}</span>`).join('');
       view.prepend(matrix);
     });
-  }
-
-  function renderLineup() {
-    $('#lineupList').innerHTML = data.musicArtists.map((artist, index) => `
-      <article class="lineup-item">
-        <span>${String(index + 1).padStart(2, '0')}</span>
-        <div><h3>${escapeHTML(artist.name)}</h3><small>${escapeHTML(artist.role)}</small></div>
-        <b>${artist.status === 'Disponible' ? 'SET' : 'PRÓXIMAMENTE'}</b>
-      </article>
-    `).join('');
   }
 
   function formatTime(milliseconds = 0) {
@@ -359,10 +349,11 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.profile));
     if (data.registrationEndpoint) {
       try {
-        await fetch(data.registrationEndpoint, {
+        const response = await fetch(data.registrationEndpoint, {
           method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({ nombre: name, instagram: `@${instagram}`, folio: state.profile.folio })
+          body: JSON.stringify({ name, instagram: `@${instagram}`, folio: state.profile.folio })
         });
+        if (!response.ok) throw new Error(`Formspree ${response.status}`);
       } catch { toast('BOLETO GENERADO. SINCRONIZACIÓN REMOTA PENDIENTE.'); }
     }
     unlockExperience();
@@ -465,7 +456,7 @@
 
   function init() {
     installViewMatrix();
-    renderLineup(); renderMedia({ reloadAudio: true }); renderVisual();
+    renderMedia({ reloadAudio: true }); renderVisual();
     $('#mapsLink').href = data.event.mapsUrl;
     if (state.profile) unlockExperience();
     bindEvents();

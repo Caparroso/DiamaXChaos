@@ -9,7 +9,7 @@ CÓMO SUBIR A GITHUB
 CONTENIDO ACTUAL
 - Portada de pantalla completa construida como un solo flyer, sin información repetida ni marca superior flotante.
 - Fondo animado carmesí con caracteres japoneses estilo Matrix.
-- Lineup musical incluido en la portada y disponible en su propia sección.
+- Lineup musical incluido únicamente en la portada, sin una pestaña redundante.
 - Acceso libre a ubicación, música y artistas visuales.
 - Registro con nombre e Instagram.
 - Boleto descargable.
@@ -51,7 +51,7 @@ CONTENIDO ACTUAL
 
 IMPORTANTE SOBRE EL REGISTRO
 El boleto se genera y se guarda en el dispositivo del visitante. Se necesita para entrar al evento.
-Cuando se defina el servicio que recibirá los registros, se agregará su dirección en registrationEndpoint dentro de data.js.
+Los registros de nombre e Instagram se envían a Formspree mediante el endpoint configurado en data.js.
 
 ACTUALIZACIONES FUTURAS
 Los datos centrales viven en data.js. Las nuevas fotografías y obras se colocarán en la carpeta assets.
