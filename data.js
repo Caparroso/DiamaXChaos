@@ -79,9 +79,9 @@ window.DIAMA_DATA = {
   visualArtists: [
     { name: 'Pawina', works: [{ image: 'assets/pawina.jpg', alt: 'Obra de Pawina' }] },
     { name: 'Bastard', works: [{ image: 'assets/bastard.jpg', alt: 'Obra de Bastard' }] },
-    { name: 'Karen Sanz', works: [{ image: 'assets/karen-sanz.jpg', alt: 'Obra de Karen Sanz' }] },
+    { name: 'Karen Sanz', works: [{ image: 'assets/karen-sanz.jpg?v=19', alt: 'Obra de Karen Sanz' }] },
     { name: 'Dante Carro', works: [{ image: 'assets/dante-carro.jpg', alt: 'Obra de Dante Carro' }] },
-    { name: 'CANEM', works: [{ image: 'assets/canem.jpg', alt: 'Obra de CANEM' }] },
+    { name: 'CANEM', works: [{ image: 'assets/canem.jpg?v=19', alt: 'Obra de CANEM' }] },
     { name: 'Joel Cano', works: [{ image: 'assets/joel-cano.jpg', alt: 'Obra de Joel Cano' }] },
     { name: 'Mirlo Pájaro', works: [{ image: 'assets/mirlo-pajaro.jpg', alt: 'Obra de Mirlo Pájaro' }] },
     { name: 'Rata Mugrosa', works: [{ image: 'assets/rata-mugrosa.jpg', alt: 'Obra de Rata Mugrosa' }] },
