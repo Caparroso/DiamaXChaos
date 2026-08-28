@@ -122,6 +122,7 @@
       'ディアマ混沌安息日秘密の場所赤い信号五九'
     ];
     $$('.view').forEach((view, viewIndex) => {
+      if (view.dataset.view === 'intro') return;
       if ($('.view-matrix', view)) return;
       const matrix = document.createElement('div');
       matrix.className = 'view-matrix';

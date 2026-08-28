@@ -23,6 +23,8 @@ CONTENIDO ACTUAL
 - SoundCloud funciona como motor de audio oculto; no aparece su reproductor visual.
 - Los botones rectangulares son minimalistas y no muestran insignias A/B.
 - La portada reúne una sola vez Diama X Chaos Sabbati, Querétaro, fecha, lineup y horario 8:00PM.
+- El flyer no usa una placa sólida: comparte el mismo fondo Matrix animado que la interfaz.
+- En celular el lineup está centrado, separado de la marca y dispuesto en una sola columna legible.
 - La sección redundante de Información fue eliminada para reducir clics.
 - La pestaña PORTADA permite volver al inicio directamente sin usar el logo de Diama.
 - La navegación lateral recorre todas las secciones en orden y vuelve a la portada al terminar.
@@ -40,7 +42,9 @@ CONTENIDO ACTUAL
 - La galería también contiene obra de Dante Carro, CANEM, Joel Cano, Mirlo Pájaro y Rata Mugrosa.
 - Prax muestra fotografía y reproduce PRAX SET dentro del Player.
 - El registro muestra $100 en puerta con boleto y $150 sin registro.
+- Ambos precios indican claramente que el pago es en puerta.
 - Varón de Humo fue retirado de Artistas Visuales.
+- Malak ya muestra su obra en la galería.
 
 IMPORTANTE SOBRE EL REGISTRO
 El boleto se genera y se guarda en el dispositivo del visitante. Se necesita para entrar al evento.

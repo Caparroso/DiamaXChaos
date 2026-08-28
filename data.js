@@ -85,6 +85,6 @@ window.DIAMA_DATA = {
     { name: 'Joel Cano', works: [{ image: 'assets/joel-cano.jpg', alt: 'Obra de Joel Cano' }] },
     { name: 'Mirlo Pájaro', works: [{ image: 'assets/mirlo-pajaro.jpg', alt: 'Obra de Mirlo Pájaro' }] },
     { name: 'Rata Mugrosa', works: [{ image: 'assets/rata-mugrosa.jpg', alt: 'Obra de Rata Mugrosa' }] },
-    { name: 'Malak', works: [] }
+    { name: 'Malak', works: [{ image: 'assets/malak.jpg', alt: 'Obra de Malak' }] }
   ].map((artist, index) => ({ ...artist, index: index + 1 }))
 };
