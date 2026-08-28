@@ -9,7 +9,7 @@ CÓMO SUBIR A GITHUB
 CONTENIDO ACTUAL
 - Portada de pantalla completa construida como un solo flyer, sin información repetida ni marca superior flotante.
 - Fondo animado carmesí con caracteres japoneses estilo Matrix.
-- Ambiente original Diama X Chaos iniciado con el primer toque y reproducido en loop continuo.
+- Ambiente original Diama X Chaos precargado antes de mostrar la entrada, iniciado directamente con el primer toque —incluido iPhone— y reproducido en loop continuo.
 - Al reproducir un set del Diama Player el ambiente se silencia; vuelve suavemente al pausar o terminar el set.
 - Lineup musical incluido únicamente en la portada, sin una pestaña redundante.
 - Acceso libre a ubicación, música y artistas visuales.

@@ -7,7 +7,7 @@ window.DIAMA_DATA = {
     locationLabel: 'UBICACIÓN CONFIRMADA',
     mapsUrl: 'https://maps.app.goo.gl/NFqnchoPc9XxhhnW8?g_st=ic'
   },
-  ambientAudio: 'assets/diama-x-chaos-ambient.mp3?v=20',
+  ambientAudio: 'assets/diama-x-chaos-ambient.mp3?v=21',
   registrationEndpoint: 'https://formspree.io/f/xbgjjjkj',
   musicArtists: [
     {

@@ -24,11 +24,13 @@
   let playerMuted = false;
   let soundCloudSourceIndex = -1;
   const ambient = {
-    bytesPromise: null,
+    preparePromise: null,
     context: null,
+    buffer: null,
     gain: null,
     source: null,
     fallback: null,
+    ready: false,
     started: false,
     suppressed: false,
     entering: false
@@ -37,13 +39,48 @@
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
-  function preloadAmbient() {
-    if (ambient.bytesPromise || !data.ambientAudio) return ambient.bytesPromise;
-    ambient.bytesPromise = fetch(data.ambientAudio, { cache: 'force-cache' }).then((response) => {
-      if (!response.ok) throw new Error(`Ambient ${response.status}`);
-      return response.arrayBuffer();
-    });
-    return ambient.bytesPromise;
+  function createAmbientFallback() {
+    if (!ambient.fallback) {
+      ambient.fallback = new Audio(data.ambientAudio);
+      ambient.fallback.loop = true;
+      ambient.fallback.preload = 'auto';
+      ambient.fallback.load();
+    }
+    ambient.ready = true;
+    return ambient.fallback;
+  }
+
+  function prepareAmbient() {
+    if (ambient.preparePromise || !data.ambientAudio) return ambient.preparePromise || Promise.resolve();
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) {
+      createAmbientFallback();
+      ambient.preparePromise = Promise.resolve();
+      return ambient.preparePromise;
+    }
+
+    ambient.context = new AudioContext();
+    ambient.gain = ambient.context.createGain();
+    ambient.gain.gain.value = 0;
+    ambient.gain.connect(ambient.context.destination);
+    ambient.preparePromise = fetch(data.ambientAudio, { cache: 'force-cache' })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Ambient ${response.status}`);
+        return response.arrayBuffer();
+      })
+      .then((bytes) => ambient.context.decodeAudioData(bytes))
+      .then((buffer) => {
+        ambient.buffer = buffer;
+        ambient.ready = true;
+      })
+      .catch(() => {
+        if (ambient.context) ambient.context.close().catch(() => {});
+        ambient.context = null;
+        ambient.buffer = null;
+        ambient.gain = null;
+        createAmbientFallback();
+      });
+    return ambient.preparePromise;
   }
 
   function fadeAmbient(target, seconds = .45) {
@@ -58,7 +95,9 @@
   function setAmbientSuppressed(suppressed) {
     ambient.suppressed = suppressed;
     if (ambient.fallback) {
-      ambient.fallback.volume = suppressed ? 0 : .62;
+      if (!ambient.started) return;
+      if (suppressed) ambient.fallback.pause();
+      else ambient.fallback.play().catch(() => {});
       return;
     }
     if (!ambient.started) return;
@@ -66,50 +105,32 @@
     fadeAmbient(suppressed ? 0 : .62, suppressed ? .22 : .52);
   }
 
-  async function startAmbient() {
-    if (ambient.started || !data.ambientAudio) return;
-    const startFallback = async () => {
-      ambient.fallback = new Audio(data.ambientAudio);
-      ambient.fallback.loop = true;
-      ambient.fallback.preload = 'auto';
-      ambient.fallback.volume = ambient.suppressed ? 0 : .62;
-      await ambient.fallback.play();
+  function startAmbient() {
+    if (ambient.started || !data.ambientAudio) return Promise.resolve();
+    if (!ambient.ready) return Promise.reject(new Error('Ambient not ready'));
+    if (ambient.fallback) {
+      ambient.fallback.volume = .62;
       ambient.started = true;
-    };
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext) return startFallback();
-
-    try {
-      ambient.context = new AudioContext();
-      const resume = ambient.context.resume();
-      const bytes = await preloadAmbient();
-      const buffer = await ambient.context.decodeAudioData(bytes.slice(0));
-      ambient.gain = ambient.context.createGain();
-      ambient.gain.gain.value = 0;
-      ambient.gain.connect(ambient.context.destination);
-      ambient.source = ambient.context.createBufferSource();
-      ambient.source.buffer = buffer;
-      ambient.source.loop = true;
-      ambient.source.loopStart = 0;
-      ambient.source.loopEnd = buffer.duration;
-      ambient.source.connect(ambient.gain);
-      ambient.source.start(0);
-      ambient.started = true;
-      await resume;
-      setAmbientSuppressed(state.playerPlaying);
-    } catch {
-      ambient.started = false;
-      if (ambient.context) ambient.context.close().catch(() => {});
-      ambient.context = null;
-      ambient.gain = null;
-      ambient.source = null;
-      await startFallback();
+      return ambient.fallback.play();
     }
+
+    ambient.source = ambient.context.createBufferSource();
+    ambient.source.buffer = ambient.buffer;
+    ambient.source.loop = true;
+    ambient.source.loopStart = 0;
+    ambient.source.loopEnd = ambient.buffer.duration;
+    ambient.source.connect(ambient.gain);
+    const resume = ambient.context.resume();
+    ambient.source.start(0);
+    ambient.started = true;
+    fadeAmbient(state.playerPlaying ? 0 : .62, state.playerPlaying ? .01 : .35);
+    return resume;
   }
 
   async function enterExperience() {
     const boot = $('#boot');
     if (!boot || ambient.entering || boot.classList.contains('is-done')) return;
+    if (!ambient.ready || !boot.classList.contains('is-ready')) return;
     ambient.entering = true;
     boot.classList.add('is-entering');
     const label = $('#bootEnter');
@@ -567,8 +588,10 @@
     bindEvents();
     const requested = location.hash.replace('#', '');
     navigate(views.includes(requested) ? requested : 'intro', { silent: true });
-    preloadAmbient().catch(() => {});
-    setTimeout(() => $('#boot').classList.add('is-ready'), 700);
+    Promise.all([
+      prepareAmbient(),
+      new Promise((resolve) => setTimeout(resolve, 700))
+    ]).then(() => $('#boot').classList.add('is-ready'));
   }
 
   init();
