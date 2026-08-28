@@ -23,9 +23,103 @@
   let soundCloudWidget = null;
   let playerMuted = false;
   let soundCloudSourceIndex = -1;
+  const ambient = {
+    bytesPromise: null,
+    context: null,
+    gain: null,
+    source: null,
+    fallback: null,
+    started: false,
+    suppressed: false,
+    entering: false
+  };
 
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
+  function preloadAmbient() {
+    if (ambient.bytesPromise || !data.ambientAudio) return ambient.bytesPromise;
+    ambient.bytesPromise = fetch(data.ambientAudio, { cache: 'force-cache' }).then((response) => {
+      if (!response.ok) throw new Error(`Ambient ${response.status}`);
+      return response.arrayBuffer();
+    });
+    return ambient.bytesPromise;
+  }
+
+  function fadeAmbient(target, seconds = .45) {
+    if (!ambient.context || !ambient.gain || !ambient.started) return;
+    const now = ambient.context.currentTime;
+    const gain = ambient.gain.gain;
+    gain.cancelScheduledValues(now);
+    gain.setValueAtTime(gain.value, now);
+    gain.linearRampToValueAtTime(target, now + seconds);
+  }
+
+  function setAmbientSuppressed(suppressed) {
+    ambient.suppressed = suppressed;
+    if (ambient.fallback) {
+      ambient.fallback.volume = suppressed ? 0 : .62;
+      return;
+    }
+    if (!ambient.started) return;
+    if (!suppressed && ambient.context.state === 'suspended') ambient.context.resume().catch(() => {});
+    fadeAmbient(suppressed ? 0 : .62, suppressed ? .22 : .52);
+  }
+
+  async function startAmbient() {
+    if (ambient.started || !data.ambientAudio) return;
+    const startFallback = async () => {
+      ambient.fallback = new Audio(data.ambientAudio);
+      ambient.fallback.loop = true;
+      ambient.fallback.preload = 'auto';
+      ambient.fallback.volume = ambient.suppressed ? 0 : .62;
+      await ambient.fallback.play();
+      ambient.started = true;
+    };
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return startFallback();
+
+    try {
+      ambient.context = new AudioContext();
+      const resume = ambient.context.resume();
+      const bytes = await preloadAmbient();
+      const buffer = await ambient.context.decodeAudioData(bytes.slice(0));
+      ambient.gain = ambient.context.createGain();
+      ambient.gain.gain.value = 0;
+      ambient.gain.connect(ambient.context.destination);
+      ambient.source = ambient.context.createBufferSource();
+      ambient.source.buffer = buffer;
+      ambient.source.loop = true;
+      ambient.source.loopStart = 0;
+      ambient.source.loopEnd = buffer.duration;
+      ambient.source.connect(ambient.gain);
+      ambient.source.start(0);
+      ambient.started = true;
+      await resume;
+      setAmbientSuppressed(state.playerPlaying);
+    } catch {
+      ambient.started = false;
+      if (ambient.context) ambient.context.close().catch(() => {});
+      ambient.context = null;
+      ambient.gain = null;
+      ambient.source = null;
+      await startFallback();
+    }
+  }
+
+  async function enterExperience() {
+    const boot = $('#boot');
+    if (!boot || ambient.entering || boot.classList.contains('is-done')) return;
+    ambient.entering = true;
+    boot.classList.add('is-entering');
+    const label = $('#bootEnter');
+    if (label) label.textContent = 'ENTRANDO';
+    try { await startAmbient(); }
+    catch { /* La invitación sigue disponible aunque el navegador rechace el audio. */ }
+    boot.classList.add('is-done');
+    boot.setAttribute('aria-hidden', 'true');
+    boot.tabIndex = -1;
+  }
 
   function readProfile() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || null; }
@@ -196,6 +290,7 @@
     state.playerPosition = 0;
     state.playerDuration = 0;
     state.playerPlaying = false;
+    setAmbientSuppressed(false);
     updatePlayButton();
     updatePlayerProgress();
     if (!artist || !artist.soundcloud) { mount.innerHTML = ''; return; }
@@ -216,14 +311,17 @@
     });
     soundCloudWidget.bind(events.PLAY, () => {
       state.playerPlaying = true;
+      setAmbientSuppressed(true);
       updatePlayButton();
     });
     soundCloudWidget.bind(events.PAUSE, () => {
       state.playerPlaying = false;
+      setAmbientSuppressed(false);
       updatePlayButton();
     });
     soundCloudWidget.bind(events.FINISH, () => {
       state.playerPlaying = false;
+      setAmbientSuppressed(false);
       state.playerPosition = state.playerDuration;
       updatePlayButton();
       updatePlayerProgress();
@@ -421,6 +519,13 @@
   }
 
   function bindEvents() {
+    const boot = $('#boot');
+    boot.addEventListener('click', enterExperience);
+    boot.addEventListener('keydown', (event) => {
+      if (!['Enter', ' '].includes(event.key)) return;
+      event.preventDefault();
+      enterExperience();
+    });
     document.addEventListener('click', (event) => {
       const target = event.target.closest('[data-view-target]');
       if (target) navigate(target.dataset.viewTarget);
@@ -462,7 +567,8 @@
     bindEvents();
     const requested = location.hash.replace('#', '');
     navigate(views.includes(requested) ? requested : 'intro', { silent: true });
-    setTimeout(() => $('#boot').classList.add('is-done'), 850);
+    preloadAmbient().catch(() => {});
+    setTimeout(() => $('#boot').classList.add('is-ready'), 700);
   }
 
   init();

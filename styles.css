@@ -628,3 +628,22 @@ button,input,a{font:inherit}button,a{touch-action:manipulation}.app-shell{positi
   .flyer-date span{font-size:11px}
   .flyer-time{font-size:22px}
 }
+
+/* V20: entrada táctil y ambiente continuo */
+.boot{cursor:pointer;outline:none}
+.boot:focus-visible{box-shadow:inset 0 0 0 2px rgba(255,255,255,.75)}
+.boot-enter{
+  display:block;
+  margin-top:22px;
+  color:#ff5d77;
+  font:700 9px/1 "Inter",Arial,sans-serif;
+  letter-spacing:.24em;
+  opacity:0;
+  transform:translateY(5px);
+  transition:opacity .3s ease,transform .3s ease;
+  animation:bootEnterPulse 1.6s ease-in-out infinite;
+}
+.boot.is-ready .boot-enter{opacity:1;transform:translateY(0)}
+.boot.is-entering{pointer-events:none}
+.boot.is-entering .boot-enter{opacity:.7;animation:none}
+@keyframes bootEnterPulse{50%{opacity:.42}}

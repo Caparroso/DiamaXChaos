@@ -14,13 +14,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/diama-logo.png">
-  <link rel="stylesheet" href="styles.css?v=19">
+  <link rel="preload" as="audio" href="assets/diama-x-chaos-ambient.mp3?v=20" type="audio/mpeg">
+  <link rel="stylesheet" href="styles.css?v=20">
 </head>
 <body>
-  <div class="boot" id="boot" aria-hidden="true">
+  <div class="boot" id="boot" role="button" tabindex="0" aria-label="Toca para entrar y reproducir el ambiente">
     <div class="boot-wordmark" aria-label="Diama."></div>
     <p>X CHAOS SABBATI / QUERÉTARO</p>
     <div class="boot-line"><i></i></div>
+    <span class="boot-enter" id="bootEnter">TOCA PARA ENTRAR</span>
   </div>
 
   <div class="app-shell" id="appShell">
@@ -128,8 +130,8 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </div>
-  <script src="data.js?v=19"></script>
-  <script src="app.js?v=19"></script>
+  <script src="data.js?v=20"></script>
+  <script src="app.js?v=20"></script>
   <script async src="https://w.soundcloud.com/player/api.js" onload="window.DIAMA_SOUND_CLOUD_READY && window.DIAMA_SOUND_CLOUD_READY()"></script>
 </body>
 </html>
