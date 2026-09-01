@@ -3,11 +3,14 @@
 
   const data = window.DIAMA_DATA;
   const STORAGE_KEY = 'diama-qro-profile-v1';
-  const views = ['intro', 'register', 'access', 'media', 'visual'];
+  const views = ['intro', 'lore', 'register', 'access', 'media', 'visual'];
+  const openTraversal = ['intro', 'register', 'access', 'media', 'visual'];
+  const closedTraversal = ['lore', 'access', 'media', 'visual', 'intro', 'register'];
+  const registrationDeadline = Date.parse(data.event.registrationClosesAt);
   const mobileBladeMeta = {
     intro: ['00', 'PORTADA'], register: ['01', 'MI BOLETO'],
     access: ['02', 'UBICACIÓN'], media: ['03', 'DIAMA PLAYER'],
-    visual: ['04', 'ARTE VISUAL']
+    visual: ['04', 'ARTE VISUAL'], lore: ['◇', 'LORE']
   };
   const lockedViews = new Set();
   const state = {
@@ -18,8 +21,11 @@
     playerTab: 'artists',
     playerPosition: 0,
     playerDuration: 0,
-    playerPlaying: false
+    playerPlaying: false,
+    registrationClosed: false
   };
+  let clockOffset = 0;
+  let countdownTimer = null;
   let soundCloudWidget = null;
   let playerMuted = false;
   let soundCloudSourceIndex = -1;
@@ -140,6 +146,7 @@
     boot.classList.add('is-done');
     boot.setAttribute('aria-hidden', 'true');
     boot.tabIndex = -1;
+    if (state.registrationClosed) navigate('lore', { silent: true });
   }
 
   function readProfile() {
@@ -151,6 +158,90 @@
     return String(value).replace(/[&<>'"]/g, (char) => ({
       '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;'
     })[char]);
+  }
+
+  function currentTime() {
+    return Date.now() + clockOffset;
+  }
+
+  function setCountdownValue(selector, value) {
+    const element = $(selector);
+    if (element) element.textContent = String(value).padStart(2, '0');
+  }
+
+  function updateCountdown() {
+    const remaining = Math.max(0, registrationDeadline - currentTime());
+    const totalSeconds = Math.floor(remaining / 1000);
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    setCountdownValue('#countdownDays', days);
+    setCountdownValue('#countdownHours', hours);
+    setCountdownValue('#countdownMinutes', minutes);
+    setCountdownValue('#countdownSeconds', seconds);
+  }
+
+  function applyRegistrationState() {
+    const wasClosed = state.registrationClosed;
+    const isClosed = currentTime() >= registrationDeadline;
+    state.registrationClosed = isClosed;
+    document.body.classList.toggle('registration-is-closed', isClosed);
+
+    const countdown = $('#registrationCountdown');
+    const closedPanel = $('#registrationClosed');
+    const form = $('#registrationForm');
+    const ticket = $('#ticketPanel');
+    const registerLabel = $('[data-register-label]');
+    if (countdown) countdown.classList.toggle('is-closed', isClosed);
+
+    if (isClosed && !state.profile) {
+      if (form) form.hidden = true;
+      if (ticket) ticket.hidden = true;
+      if (closedPanel) closedPanel.hidden = false;
+      if (registerLabel) registerLabel.textContent = 'REGISTRO CERRADO';
+    } else if (state.profile) {
+      unlockExperience();
+    } else {
+      if (form) form.hidden = false;
+      if (ticket) ticket.hidden = true;
+      if (closedPanel) closedPanel.hidden = true;
+      if (registerLabel) registerLabel.textContent = 'REGISTRO';
+    }
+
+    updateCountdown();
+    updateMobileBlades();
+    if (!wasClosed && isClosed && $('#boot')?.classList.contains('is-done')) navigate('lore', { silent: true });
+  }
+
+  async function syncClock() {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 1800);
+    const startedAt = Date.now();
+    try {
+      const clockUrl = new URL(window.location.href);
+      clockUrl.hash = '';
+      clockUrl.searchParams.set('_diama_clock', String(startedAt));
+      const response = await fetch(clockUrl.href, {
+        method: 'HEAD', cache: 'no-store', signal: controller.signal
+      });
+      const serverDate = Date.parse(response.headers.get('date') || '');
+      if (Number.isFinite(serverDate)) {
+        const midpoint = (startedAt + Date.now()) / 2;
+        clockOffset = serverDate - midpoint;
+      }
+    } catch { /* Sin conexión se usa el reloj del dispositivo. */ }
+    finally {
+      clearTimeout(timeout);
+      applyRegistrationState();
+    }
+  }
+
+  function startRegistrationClock() {
+    applyRegistrationState();
+    clearInterval(countdownTimer);
+    countdownTimer = setInterval(applyRegistrationState, 1000);
+    return syncClock();
   }
 
   function normalizeInstagram(value) {
@@ -210,8 +301,10 @@
   }
 
   function adjacentView(direction) {
-    const currentIndex = Math.max(0, views.indexOf(state.view));
-    return views[(currentIndex + direction + views.length) % views.length];
+    if (state.view === 'lore' && !state.registrationClosed) return direction < 0 ? 'intro' : 'register';
+    const traversal = state.registrationClosed ? closedTraversal : openTraversal;
+    const currentIndex = Math.max(0, traversal.indexOf(state.view));
+    return traversal[(currentIndex + direction + traversal.length) % traversal.length];
   }
 
   function updateMobileBlades() {
@@ -447,6 +540,7 @@
     const registerLabel = $('[data-register-label]');
     if (registerLabel) registerLabel.textContent = 'MI BOLETO';
     $('#registrationForm').hidden = true;
+    $('#registrationClosed').hidden = true;
     $('#ticketPanel').hidden = false;
     $('#ticketName').textContent = state.profile.name;
     $('#ticketInstagram').textContent = `@${state.profile.instagram}`;
@@ -455,6 +549,12 @@
 
   async function submitRegistration(event) {
     event.preventDefault();
+    applyRegistrationState();
+    if (state.registrationClosed) {
+      toast('REGISTRO CERRADO');
+      clickTone(180);
+      return;
+    }
     const name = $('#guestName').value.trim();
     const instagram = normalizeInstagram($('#guestInstagram').value);
     const message = $('#formMessage');
@@ -584,12 +684,13 @@
     installViewMatrix();
     renderMedia({ reloadAudio: true }); renderVisual();
     $('#mapsLink').href = data.event.mapsUrl;
-    if (state.profile) unlockExperience();
+    const clockReady = startRegistrationClock();
     bindEvents();
     const requested = location.hash.replace('#', '');
     navigate(views.includes(requested) ? requested : 'intro', { silent: true });
     Promise.all([
       prepareAmbient(),
+      clockReady,
       new Promise((resolve) => setTimeout(resolve, 700))
     ]).then(() => $('#boot').classList.add('is-ready'));
   }

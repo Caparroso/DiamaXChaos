@@ -14,8 +14,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/diama-logo.png">
-  <link rel="preload" as="audio" href="assets/diama-x-chaos-ambient.mp3?v=21" type="audio/mpeg">
-  <link rel="stylesheet" href="styles.css?v=21">
+  <link rel="preload" as="audio" href="assets/diama-x-chaos-ambient.mp3?v=22" type="audio/mpeg">
+  <link rel="stylesheet" href="styles.css?v=22">
 </head>
 <body>
   <div class="boot" id="boot" role="button" tabindex="0" aria-label="Toca para entrar y reproducir el ambiente">
@@ -57,12 +57,41 @@
         </article>
       </section>
 
+      <section class="view lore-view" data-view="lore" aria-label="Narrativa de Diama">
+        <article class="lore-banner" id="loreBanner">
+          <div class="lore-diamond" aria-hidden="true">◇</div>
+          <div class="lore-copy">
+            <p>Hubo un tiempo en que la conciencia y la moral fueron una sola cosa.</p>
+            <p>Cuando la realidad fue observada, aquella unidad se quebró. De cada mirada nació un juicio; de cada juicio, una nueva forma de ordenar el mundo.</p>
+            <p>La percepción comenzó a deshacer cuanto veía, intentando construir un sentido con sus fragmentos. Así nació el propósito. Así comenzó la búsqueda de aquello que siempre habitó dentro de nosotros.</p>
+            <p>Se decía que el porvenir estaría sostenido por el amor, la paz y la comprensión del prójimo. Pero aquel futuro nunca llegó.</p>
+            <p>De su ausencia solamente quedó la nostalgia.</p>
+            <p>Algunos aún bailan para recordarlo.</p>
+            <p>No para escapar del mundo, sino para invocar el futuro que nos fue prometido.</p>
+            <p>Seis fragmentos de mi diamante fugaz se han perdido entre el baile. Ninguna mano podrá reclamar más de uno, pues aquello que fue dividido no puede ser reconstruido por una sola voluntad.</p>
+            <p>Si encuentras una parte, busca a quienes cargan las otras cinco.</p>
+            <p>Cuando seis vuelvan a reconocerse como uno, lleven el diamante al lugar donde se reparte el elixir.</p>
+            <p>Allí, aquello que permanecía oculto será revelado.</p>
+            <p>Y la recompensa pertenecerá a quienes lograron reunir lo que la realidad separó.</p>
+          </div>
+        </article>
+      </section>
+
       <section class="view register-view" data-view="register" aria-labelledby="register-title">
         <div class="register-copy">
           <p class="sys-label">01 / REGISTRO</p>
           <h2 id="register-title">REGISTRO</h2>
           <p>Nombre e Instagram. Presenta tu boleto para acceder al precio preferencial.</p>
-          <div class="registration-price"><div><span>CON REGISTRO</span><strong>$80</strong><small>EN PUERTA</small></div><div><span>SIN REGISTRO</span><strong>$100</strong><small>EN PUERTA</small></div></div>
+          <div class="registration-countdown" id="registrationCountdown" aria-live="polite">
+            <span>CIERRE DE REGISTRO · 4 SEPTIEMBRE · 6:00PM</span>
+            <div>
+              <b><strong id="countdownDays">00</strong><small>DÍAS</small></b>
+              <b><strong id="countdownHours">00</strong><small>HORAS</small></b>
+              <b><strong id="countdownMinutes">00</strong><small>MIN</small></b>
+              <b><strong id="countdownSeconds">00</strong><small>SEG</small></b>
+            </div>
+          </div>
+          <div class="registration-price"><div><span>CON REGISTRO</span><strong>$100</strong><small>EN PUERTA</small></div><div><span>SIN REGISTRO</span><strong>$150</strong><small>EN PUERTA</small></div></div>
         </div>
         <div class="profile-console">
           <form id="registrationForm" novalidate>
@@ -73,6 +102,12 @@
             <button class="action action-primary action-full" type="submit">CREAR MI BOLETO</button>
           </form>
 
+          <article class="registration-closed" id="registrationClosed" hidden>
+            <i aria-hidden="true">◇</i>
+            <b>REGISTRO CERRADO</b>
+            <span>4 SEPTIEMBRE · 6:00PM</span>
+          </article>
+
           <article class="ticket-panel" id="ticketPanel" hidden>
             <div class="ticket-art ticket-art-clean">
               <div class="ticket-rain" aria-hidden="true">ディアマ<br>赤い夜<br>DIAMA.<br>文化信号<br>五九<br>QUERÉTARO</div>
@@ -82,7 +117,7 @@
             </div>
             <div class="ticket-data">
               <p>BOLETO</p><h3 id="ticketName">—</h3><strong id="ticketInstagram">—</strong>
-              <dl><div><dt>EVENTO</dt><dd>DIAMA X CHAOS</dd></div><div><dt>FECHA</dt><dd>05 SEPT</dd></div><div><dt>PRECIO</dt><dd>$80 EN PUERTA</dd></div><div><dt>FOLIO</dt><dd id="ticketFolio">—</dd></div></dl>
+              <dl><div><dt>EVENTO</dt><dd>DIAMA X CHAOS</dd></div><div><dt>FECHA</dt><dd>05 SEPT</dd></div><div><dt>PRECIO</dt><dd>$100 EN PUERTA</dd></div><div><dt>FOLIO</dt><dd id="ticketFolio">—</dd></div></dl>
               <div class="ticket-code" aria-hidden="true"></div>
               <button class="action action-primary action-full" id="downloadTicket" type="button">GUARDAR BOLETO</button>
             </div>
@@ -128,10 +163,11 @@
       </section>
     </main>
 
+    <button class="lore-trigger" id="loreTrigger" type="button" data-view-target="lore" aria-label="Abrir la narrativa del diamante" title="Abrir narrativa"><span aria-hidden="true">◇</span></button>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
   </div>
-  <script src="data.js?v=21"></script>
-  <script src="app.js?v=21"></script>
+  <script src="data.js?v=22"></script>
+  <script src="app.js?v=22"></script>
   <script async src="https://w.soundcloud.com/player/api.js" onload="window.DIAMA_SOUND_CLOUD_READY && window.DIAMA_SOUND_CLOUD_READY()"></script>
 </body>
 </html>

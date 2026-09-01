@@ -5,9 +5,11 @@ window.DIAMA_DATA = {
     date: '5 DE SEPTIEMBRE',
     city: 'QUERÉTARO',
     locationLabel: 'UBICACIÓN CONFIRMADA',
+    registrationClosesAt: '2026-09-04T18:00:00-06:00',
+    timeZone: 'America/Mexico_City',
     mapsUrl: 'https://maps.app.goo.gl/NFqnchoPc9XxhhnW8?g_st=ic'
   },
-  ambientAudio: 'assets/diama-x-chaos-ambient.mp3?v=21',
+  ambientAudio: 'assets/diama-x-chaos-ambient.mp3?v=22',
   registrationEndpoint: 'https://formspree.io/f/xbgjjjkj',
   musicArtists: [
     {
